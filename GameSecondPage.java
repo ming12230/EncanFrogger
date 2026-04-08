@@ -1,5 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class GameSecondPage extends JPanel {
 
@@ -10,9 +10,13 @@ public class GameSecondPage extends JPanel {
     JPanel buttonPanel;
     MainContainer parent;
 
+    private Image background;
+
     public GameSecondPage(MainContainer parent){
         this.parent = parent;
         setLayout(new BorderLayout());
+
+        background = new ImageIcon("ASSETS/background.png").getImage();
 
         setupButtons();
     }
@@ -21,7 +25,7 @@ public class GameSecondPage extends JPanel {
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
+        buttonPanel.setOpaque(false);
         //button initialization
         startBttn = new JButton("START");
         menuBttn = new JButton("MENU");
@@ -47,5 +51,13 @@ public class GameSecondPage extends JPanel {
         startBttn.addActionListener(e -> parent.startGame());
         menuBttn.addActionListener(e -> parent.menuGame());
         exitBttn.addActionListener(e -> System.exit(0));
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        if (background != null) {
+            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }
