@@ -1,5 +1,7 @@
 To quickly compile and run:
-POWERSHELL: ./run.bat
-CMD: run.bat
+WORKS FOR ALL: .\run.cmd
+POWERSHELL: ./run.cmd
+CMD: run
+FILE EXPLORER: double-click run.cmd
 
 ![UML Class Diagram](docs/class-diagram.drawio.svg)
