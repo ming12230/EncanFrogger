@@ -59,7 +59,7 @@ public class CursorGlassPane extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(customCursor != null){
-            g.drawImage(customCursor, x, y, 32, 32, this);
+            g.drawImage(customCursor, x, y, 50, 50, this);
         }
     }
 }
