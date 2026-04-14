@@ -1,10 +1,9 @@
 package main;
 
+import core.GamePanel;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import core.GamePanel;
 import ui.overlays.CursorGlassPane;
 import ui.screens.MainPanel;
 import ui.screens.TitlePanel;
@@ -21,7 +20,7 @@ public class GameLauncher extends JFrame {
     public GameLauncher(){
         setTitle("EncanFrogger");
         setSize(850, 500);
-        setResizable(false);
+        setMinimumSize(new Dimension(850, 500));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
