@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import gameobjects.Player;
+//import gameobjects.SelectedCharacter;
 import assets.AssetManager; 
 
 public class GamePanel extends JPanel implements KeyListener {
@@ -19,7 +20,7 @@ public class GamePanel extends JPanel implements KeyListener {
         setFocusable(true);
         addKeyListener(this);
 
-        chooseChar(); //dire gud didi hiya igcall guys, test run la ini
+        chooseChar();
     }
 
     @Override
@@ -38,8 +39,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 // draw leaderboard
                 break;
             case SETTING_UP:
-                chooseChar();
-
+                break;
             case PLAYING:
                 // draw game
                 //startGame();
@@ -68,32 +68,36 @@ public class GamePanel extends JPanel implements KeyListener {
 
         JPanel characPanel = new JPanel(new BorderLayout());
         JPanel characTitle = new JPanel();
-        JPanel characBttn = new JPanel();
-            characBttn.setLayout(new BoxLayout(characBttn, BoxLayout.X_AXIS));
+        JPanel characBttn = new JPanel(new GridLayout(1, 5, 10, 10));
+            //characBttn.setLayout(new BoxLayout(characBttn, BoxLayout.X_AXIS));
         JPanel buttons = new JPanel(new BorderLayout());
             buttons.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         characTitle.add(new JLabel ("CHOOSE CHARACTER"), SwingConstants.CENTER);
 
         //characters button - i'll be using radio button po
-        JRadioButton flammara = new JRadioButton("Flammara"); //remove th ename if not necessary 
+        JRadioButton paopao = new JRadioButton("Paopao"); //remove th ename if not necessary
+        JRadioButton flamara = new JRadioButton("Flamara"); //remove th ename if not necessary 
         JRadioButton deia = new JRadioButton("Deia");
         JRadioButton adamus = new JRadioButton("Adamus");
         JRadioButton terra = new JRadioButton("Terra");
 
         ButtonGroup charGroup = new ButtonGroup();
-        charGroup.add(flammara);
-        charGroup.add(deia);
-        charGroup.add(adamus);
+        charGroup.add(paopao);
         charGroup.add(terra);
+        charGroup.add(flamara);
+        charGroup.add(adamus);
+        charGroup.add(deia);
 
-        characBttn.add(flammara);
+        characBttn.add(paopao);
         characBttn.add(Box.createHorizontalStrut(40));
-        characBttn.add(deia);
+        characBttn.add(terra);
+        characBttn.add(Box.createHorizontalStrut(40));
+        characBttn.add(flamara);
         characBttn.add(Box.createHorizontalStrut(40));
         characBttn.add(adamus);
         characBttn.add(Box.createHorizontalStrut(40));
-        characBttn.add(terra);
+        characBttn.add(deia);
         characBttn.add(Box.createHorizontalStrut(40));
 
         JButton next = new JButton("NEXT");
@@ -104,10 +108,26 @@ public class GamePanel extends JPanel implements KeyListener {
 
         characPanel.add(characTitle, BorderLayout.NORTH);
         characPanel.add(buttons, BorderLayout.SOUTH);
-        characPanel.add(characBttn, BorderLayout.EAST);
+        characPanel.add(characBttn, BorderLayout.CENTER);
 
         add(characPanel, BorderLayout.CENTER);
-        //
+
+
+        //---------------------LOGIC-------------------------
+        
+        //per character
+        if (charGroup.getSelection() == terra){
+            //waray pa man classes for each char
+        }
+
+        next.addActionListener(e -> {
+            chooseMap();
+        });
+
+    }
+
+    public void chooseMap(){
+
     }
 
     @Override
@@ -115,20 +135,25 @@ public class GamePanel extends JPanel implements KeyListener {
         int key = e.getKeyCode();
 
             // incomplete pa 'to
-            if (state == GameState.PLAYING) {
-                switch (key) {
-                    case KeyEvent.VK_W:
-                        break;
-                    case KeyEvent.VK_A:
-                        break;
-                    case KeyEvent.VK_S:
-                        break;
-                    case KeyEvent.VK_D:
-                        break;
-                    case KeyEvent.VK_ESCAPE:
-                        state = GameState.PAUSED;
-                        break;
-                }
+            if (state == GameState.PLAYING && player != null) {
+            switch (key) {
+                case KeyEvent.VK_W:
+                    player.move(0, -5);
+                    break;
+                case KeyEvent.VK_A:
+                    player.move(-5, 0);
+                    break;
+                case KeyEvent.VK_S:
+                    player.move(0, 5);
+                    break;
+                case KeyEvent.VK_D:
+                    player.move(5, 0);
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    state = GameState.PAUSED;
+                    break;
+            }
+
             } else if (state == GameState.PAUSED && key == KeyEvent.VK_ESCAPE) {
                 state = GameState.PLAYING;
             }        
